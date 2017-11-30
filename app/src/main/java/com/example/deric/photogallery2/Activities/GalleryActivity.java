@@ -1,4 +1,4 @@
-package com.example.deric.photogallery2;
+package com.example.deric.photogallery2.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.deric.photogallery2.Database.MySQLiteHelper;
+import com.example.deric.photogallery2.ImageList;
+import com.example.deric.photogallery2.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -96,8 +99,8 @@ public class GalleryActivity extends AppCompatActivity {
 
             Picasso.with(GalleryActivity.this)
                     .load(imagelist.mFilteredThumbIds.get(position))
-                    .placeholder(R.raw.place_holder)
-                    .error(R.raw.big_problem)
+                    .placeholder(R.drawable.place_holder)
+                    .error(R.drawable.big_problem)
                     .noFade().resize(150, 150)
                     .centerCrop()
                     .into(imageView);

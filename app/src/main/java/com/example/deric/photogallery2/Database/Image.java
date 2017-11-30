@@ -1,10 +1,8 @@
-package com.example.deric.photogallery2;
+package com.example.deric.photogallery2.Database;
 
 import android.graphics.Bitmap;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
-import java.util.Map;
 
 /**
  * Created by Deric on 17/11/23.

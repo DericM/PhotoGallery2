@@ -1,4 +1,4 @@
-package com.example.deric.photogallery2;
+package com.example.deric.photogallery2.Database;
 
 /**
  * Created by Deric on 17/11/23.
@@ -30,7 +30,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static final String[] COLUMNS = {COLUMN_ID, COLUMN_FILENAME, COLUMN_CAPTION,
             COLUMN_LOCATION, COLUMN_IMAGE, COLUMN_MODIFIED};
-    private HashMap hp;
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,7 +38,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // SQL statement to create book table
-        String CREATE_BOOK_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " +
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FILENAME + " TEXT, " +
                 COLUMN_CAPTION + " TEXT, " +
@@ -48,7 +47,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 COLUMN_IMAGE + " BLOB )";
 
         // create books table
-        db.execSQL(CREATE_BOOK_TABLE);
+        db.execSQL(CREATE_TABLE);
     }
 
     @Override
@@ -74,7 +73,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_LOCATION, image.getLocation());
         values.put(COLUMN_MODIFIED, image.getModified());
         values.put(COLUMN_IMAGE, image.getImage());
-
 
         // 3. insert
         db.insert(TABLE_NAME, // table
@@ -107,13 +105,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         // 4. build book object
-        Image image = new Image();
-        image.setId(Integer.parseInt(cursor.getString(0)));
-        image.setFilename(cursor.getString(1));
-        image.setCaption(cursor.getString(2));
-        image.setLocation(cursor.getString(3));
-        image.setModified(Long.parseLong(cursor.getString(4)));
-        image.setImage(cursor.getString(5).getBytes());
+        Image image = cursorToImage(cursor);
 
         //log
         Log.d("getImage("+id+")", image.toString());
@@ -122,7 +114,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         return image;
     }
 
-    public List<Image> getAllBooks() {
+    public List<Image> getAllImages() {
         List<Image> images = new LinkedList<Image>();
 
         // 1. build the query
@@ -136,13 +128,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         Image image = null;
         if (cursor.moveToFirst()) {
             do {
-                image = new Image();
-                image.setId(Integer.parseInt(cursor.getString(0)));
-                image.setFilename(cursor.getString(1));
-                image.setCaption(cursor.getString(2));
-                image.setLocation(cursor.getString(3));
-                image.setModified(Long.parseLong(cursor.getString(4)));
-                image.setImage(cursor.getString(5).getBytes());
+                image = cursorToImage(cursor);
 
                 // Add book to books
                 images.add(image);
@@ -180,7 +166,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         return i;
     }
 
-    public void deleteBook(Image image) {
+    public void deleteImage(Image image) {
 
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -195,7 +181,22 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         //log
         Log.d("deleteImage", image.toString());
+    }
 
+    public void deleteAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(MySQLiteHelper.TABLE_NAME, null, null);
+    }
+
+    private Image cursorToImage(Cursor cursor) {
+        Image image = new Image();
+        image.setId(Integer.parseInt(cursor.getString(0)));
+        image.setFilename(cursor.getString(1));
+        image.setCaption(cursor.getString(2));
+        image.setLocation(cursor.getString(3));
+        image.setModified(Long.parseLong(cursor.getString(4)));
+        image.setImage(cursor.getBlob(5));
+        return image;
     }
 
 }

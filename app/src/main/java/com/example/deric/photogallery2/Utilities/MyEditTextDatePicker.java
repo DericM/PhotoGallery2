@@ -1,4 +1,4 @@
-package com.example.deric.photogallery2;
+package com.example.deric.photogallery2.Utilities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

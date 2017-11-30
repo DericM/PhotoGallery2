@@ -1,4 +1,4 @@
-package com.example.deric.photogallery2;
+package com.example.deric.photogallery2.Database;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

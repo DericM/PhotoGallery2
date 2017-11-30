@@ -1,9 +1,10 @@
-package com.example.deric.photogallery2;
+package com.example.deric.photogallery2.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.example.deric.photogallery2.R;
 import com.squareup.picasso.Picasso;
 
 public class PreviewActivity extends AppCompatActivity {
@@ -19,15 +20,15 @@ public class PreviewActivity extends AppCompatActivity {
         if (imageId != -1) {
             Picasso.with(PreviewActivity.this)
                     .load(imageId)
-                    .placeholder(R.raw.place_holder)
+                    .placeholder(R.drawable.place_holder)
                     .noFade()
                     .resize(800, 800)
                     .centerCrop()
-                    .error(R.raw.big_problem)
+                    .error(R.drawable.big_problem)
                     .into(imageView);
         } else {
             Picasso.with(PreviewActivity.this)
-                    .load(R.raw.big_problem)
+                    .load(R.drawable.big_problem)
                     .noFade()
                     .resize(800, 800)
                     .centerCrop()

@@ -10,12 +10,12 @@ import java.util.Date;
 
 public class ImageList {
 
-    ImageFilter filter;
+    public ImageFilter filter;
 
 
-    ArrayList<Integer> mFilteredThumbIds;
+    public ArrayList<Integer> mFilteredThumbIds;
 
-    Integer[] mThumbIds;
+    public Integer[] mThumbIds;
     Date[] Modified;
     String[] Locations;
     String[] Captions;
@@ -24,11 +24,11 @@ public class ImageList {
     public ImageList(){
         mFilteredThumbIds = new ArrayList<Integer>();
         filter = new ImageFilter();
-        TestData td = new TestData();
-        mThumbIds = td.mThumbIds;
-        Modified = td.Modified;
-        Locations = td.Locations;
-        Captions = td.Captions;
+        //TestData td = new TestData();
+        //mThumbIds = td.mThumbIds;
+        //Modified = td.Modified;
+        //Locations = td.Locations;
+        //Captions = td.Captions;
     }
 
     public void filterImages(){
